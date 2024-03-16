@@ -48,13 +48,64 @@ void task_1() {
 	std::cout << std::endl;
 }
 
+/*
+* Дано целое положительное число N. Вычислить сумму натуральных нечётных
+* чисел не превышающих это число.
+*/
+void static task_2() {
+	int sum = 0;
+	int N;
+
+	std::cout << "Введите N: ";
+	std::cin >> N;
+
+	if (N < 0) {
+		std::cout << "Значение N должно быть положительным!" << std::endl;
+		return;
+	}
+
+	for (int i = 1; i <= N; i += 2)
+	{
+		sum += i;
+	}
+
+	std::cout << "Сумма нечетных чисел равна: " << sum;
+
+	system("pause");
+}
+
+/*
+* Вводится последовательность ненулевых чисел, 0 — конец последовательности.
+* Определить сумму положительных элементов последовательности.
+*/
+void static task_3() {
+	float sum = 0.0;
+
+	std::cout << "Введите последовательность чисел:" << std::endl;
+
+	float input;
+
+	do {
+
+		std::cin >> input;
+
+		if (input > 0) {
+			sum += input;
+		}
+
+	} while (input != 0.0);
+
+	std::cout << "Сумма положительных чисал: " << sum << std::endl;
+}
 
 
 int main()
 {
 	setlocale(LC_ALL, "");
 
-	task_1();
+	//task_1();
+	//task_2();
+	//task_3();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
