@@ -110,7 +110,7 @@ void static task_3() {
             hasError = stream_with_error(&std::cin);
 
             if (hasError) {
-                std::cout << "Ошибка ввода!";
+                std::cout << "Ошибка ввода!" << std::endl;
             }
             else if (input > 0) {
                 sum += input;
