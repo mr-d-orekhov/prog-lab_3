@@ -163,6 +163,43 @@ void static task_4() {
 
 }
 
+/**
+* Дано натуральное число P.
+* Вывести все простые числа не превосходящие P.
+*/
+void static task_5() {
+    int P;
+    bool hasError = false;
+
+    do {
+
+        std::cout << "Введите P: ";
+        std::cin >> P;
+
+        hasError = stream_with_error(&std::cin) || P <= 0;
+
+        if (hasError) {
+            std::cout << "Значение P должно быть положительным числом!" << std::endl;
+        }
+
+    } while (hasError);
+
+    for (int i = 2; i <= P; i++)
+    {
+        bool isPrime = true;
+        for (int j = 2; j <= std::sqrt(i); j++) {
+            if (i % j == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+
+        if (isPrime) {
+            std::cout << i << std::endl;
+        }
+    }
+}
+
 
 int main()
 {
@@ -171,7 +208,8 @@ int main()
     //task_1();
     //task_2();
     //task_3();
-    task_4();
+    //task_4();
+    task_5();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
