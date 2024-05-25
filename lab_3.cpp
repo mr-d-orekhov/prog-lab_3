@@ -107,14 +107,13 @@ void static task_3() {
 
             std::cin >> input;
 
-            if (input > 0) {
-                sum += input;
-            }
-
             hasError = stream_with_error(&std::cin);
 
             if (hasError) {
                 std::cout << "Ошибка ввода!";
+            }
+            else if (input > 0) {
+                sum += input;
             }
 
         } while (hasError);
@@ -130,8 +129,8 @@ int main()
     setlocale(LC_ALL, "");
 
     //task_1();
-    task_2();
-    //task_3();
+    //task_2();
+    task_3();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
