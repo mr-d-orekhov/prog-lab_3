@@ -4,8 +4,18 @@
 
 #include <iostream>
 
+bool static stream_with_error(std::istream* input) {
+    if (input->fail()) {
+        input->clear();
+        input->ignore(INT_MAX, '\n');
+        return true;
+    }
+
+    return false;
+}
+
 double round_to(double x, int n = 2) {
-	return round(x * pow(10.0, n)) / pow(10.0, n);
+    return round(x * pow(10.0, n)) / pow(10.0, n);
 }
 
 /*
@@ -13,39 +23,39 @@ double round_to(double x, int n = 2) {
 * шагом π/8.
 */
 void task_1() {
-	float step = M_PI / 8;
-	float range_start = -2 * M_PI;
-	float range_end = 2 * M_PI;
-	int precision = 4;
+    float step = M_PI / 8;
+    float range_start = -2 * M_PI;
+    float range_end = 2 * M_PI;
+    int precision = 4;
 
-	std::cout << "Таблица значений с использованием цикла for:" << std::endl;
+    std::cout << "Таблица значений с использованием цикла for:" << std::endl;
 
-	for (double i = range_start; i <= range_end; i += step) {
-		std::cout << round_to(i, precision) << " " << round_to(sin(i), precision) << std::endl;
-	}
+    for (double i = range_start; i <= range_end; i += step) {
+        std::cout << round_to(i, precision) << " " << round_to(sin(i), precision) << std::endl;
+    }
 
-	std::cout << std::endl;
+    std::cout << std::endl;
 
-	std::cout << "Таблица значений с использованием цикла while:" << std::endl;
+    std::cout << "Таблица значений с использованием цикла while:" << std::endl;
 
-	double j = range_start;
-	while (j <= range_end)
-	{
-		std::cout << round_to(j, precision) << " " << round_to(sin(j), precision) << std::endl;
-		j += step;
-	}
+    double j = range_start;
+    while (j <= range_end)
+    {
+        std::cout << round_to(j, precision) << " " << round_to(sin(j), precision) << std::endl;
+        j += step;
+    }
 
-	std::cout << std::endl;
+    std::cout << std::endl;
 
-	std::cout << "Таблица значений с использованием цикла do while:" << std::endl;
+    std::cout << "Таблица значений с использованием цикла do while:" << std::endl;
 
-	double k = range_start;
-	do {
-		std::cout << round_to(k, precision) << " " << round_to(sin(k), precision) << std::endl;
-		k += step;
-	} while (k <= range_end);
+    double k = range_start;
+    do {
+        std::cout << round_to(k, precision) << " " << round_to(sin(k), precision) << std::endl;
+        k += step;
+    } while (k <= range_end);
 
-	std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 /*
@@ -53,25 +63,29 @@ void task_1() {
 * чисел не превышающих это число.
 */
 void static task_2() {
-	int sum = 0;
-	int N;
+    int sum = 0;
+    int N;
+    bool hasError = false;
 
-	std::cout << "Введите N: ";
-	std::cin >> N;
+    do {
 
-	if (N < 0) {
-		std::cout << "Значение N должно быть положительным!" << std::endl;
-		return;
-	}
+        std::cout << "Введите N: ";
+        std::cin >> N;
 
-	for (int i = 1; i <= N; i += 2)
-	{
-		sum += i;
-	}
+        hasError = N < 0 && stream_with_error(&std::cin);
 
-	std::cout << "Сумма нечетных чисел равна: " << sum;
+        if (hasError) {
+            std::cout << "Значение N должно быть положительным числом!" << std::endl;
+        }
 
-	system("pause");
+    } while (hasError);
+
+    for (int i = 1; i <= N; i += 2)
+    {
+        sum += i;
+    }
+
+    std::cout << "Сумма натуральных нечетных чисел равна: " << sum;
 }
 
 /*
@@ -79,33 +93,45 @@ void static task_2() {
 * Определить сумму положительных элементов последовательности.
 */
 void static task_3() {
-	float sum = 0.0;
+    float sum = 0.0;
 
-	std::cout << "Введите последовательность чисел:" << std::endl;
+    std::cout << "Введите последовательность чисел:" << std::endl;
 
-	float input;
+    float input;
 
-	do {
+    do {
 
-		std::cin >> input;
+        bool hasError = false;
 
-		if (input > 0) {
-			sum += input;
-		}
+        do {
 
-	} while (input != 0.0);
+            std::cin >> input;
 
-	std::cout << "Сумма положительных чисал: " << sum << std::endl;
+            if (input > 0) {
+                sum += input;
+            }
+
+            hasError = stream_with_error(&std::cin);
+
+            if (hasError) {
+                std::cout << "Ошибка ввода!";
+            }
+
+        } while (hasError);
+
+    } while (input != 0.0);
+
+    std::cout << "Сумма положительных чисел: " << sum << std::endl;
 }
 
 
 int main()
 {
-	setlocale(LC_ALL, "");
+    setlocale(LC_ALL, "");
 
-	//task_1();
-	//task_2();
-	//task_3();
+    //task_1();
+    //task_2();
+    //task_3();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
