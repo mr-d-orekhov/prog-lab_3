@@ -123,6 +123,46 @@ void static task_3() {
     std::cout << "Сумма положительных чисел: " << sum << std::endl;
 }
 
+/**
+* Определить, является ли целое положительное число совершённым.
+* Совершённое число равно сумме всех своих делителей, не превосходящих это число.
+* Например, 6=1+2+3 или 28=1+2+4+7+14.
+*/
+
+void static task_4() {
+    int sum = 0;
+    int N;
+    bool hasError = false;
+
+    do {
+
+        std::cout << "Введите N: ";
+        std::cin >> N;
+
+        hasError = stream_with_error(&std::cin) || N <= 0;
+
+        if (hasError) {
+            std::cout << "Значение N должно быть положительным числом!" << std::endl;
+        }
+
+    } while (hasError);
+
+    for (int i = 1; i <= N / 2; i++)
+    {
+        if (N % i == 0) {
+            sum += i;
+        }
+    }
+
+    if (sum == N) {
+        std::cout << "Число " << N << " совершенное!";
+    }
+    else {
+        std::cout << "Число " << N << " не совершенное!";
+    }
+
+}
+
 
 int main()
 {
@@ -130,7 +170,8 @@ int main()
 
     //task_1();
     //task_2();
-    task_3();
+    //task_3();
+    task_4();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
