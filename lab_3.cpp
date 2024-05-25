@@ -72,7 +72,7 @@ void static task_2() {
         std::cout << "Введите N: ";
         std::cin >> N;
 
-        hasError = N < 0 || stream_with_error(&std::cin);
+        hasError = N <= 0 || stream_with_error(&std::cin);
 
         if (hasError) {
             std::cout << "Значение N должно быть положительным числом!" << std::endl;
